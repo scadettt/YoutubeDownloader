@@ -19,6 +19,7 @@ def my_hook(d):
         percentage.configure(text = str(value) + "%")
         percentage.update()
         progressBar.set(value/100)
+
     if d['status'] == 'finished':
         filename=d['filename']
         print(filename)
@@ -41,6 +42,19 @@ def start_download():
         print("Youtube link is invalid!")
         onCompleteLabel.configure(text="Download Failed!", text_color = "red")
 
+def clearing():
+    if (progressBar.get() != 0.0) and (progressBar.get() != 1.0):
+        print(progressBar.get())
+        onCompleteLabel.configure(text="Wait for download to be completed!", text_color = "red")
+    else:
+        #Clear progress bar
+        progressBar.set(0)
+        #Clear percentage value
+        percentage.configure(text="0%")
+        percentage.update()
+        url_var.set("")
+        onCompleteLabel.configure(text="Page Resetted!", text_color = "green")
+
 #=============================================UI ELEMENTS HERE==================================
 #Title
 title = customtkinter.CTkLabel(app, text= "Insert YouTube link here:")
@@ -62,6 +76,10 @@ progressBar.pack(padx=10, pady=10)
 #Download button
 download = customtkinter.CTkButton(app, text="Download", command=start_download)
 download.pack(padx=10, pady=10)
+
+#Clear all button
+clearAll = customtkinter.CTkButton(app, text = "Clear All", command = clearing)
+clearAll.pack(padx=10, pady=10)
 
 #Labels
 onCompleteLabel = customtkinter.CTkLabel(app, text="")
