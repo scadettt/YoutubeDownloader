@@ -1,4 +1,3 @@
-from re import U
 import tkinter
 import customtkinter
 from yt_dlp import YoutubeDL
